@@ -2,6 +2,10 @@ from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost:5432/todoapp'
+
+
+
 db = SQLAlchemy(app)
 
 class Todo(db.Model):
@@ -18,5 +22,4 @@ with app.app_context():
 #Routes
 @app.route('/')
 def index():
-    data = Todo.query.all()
-    return render_template('index.html', data)
+    return render_template('index.html', data = Todo.query.all())
