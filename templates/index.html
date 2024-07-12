@@ -7,6 +7,10 @@
 </head>
 <body>
   <h1>Todo</h1>
+  <form action="/todos/create" method="post">
+    <input type="text" name="description" placeholder="Enter description">
+    <button type="submit" valus="Create">Add</button>
+  </form>
   <ul>
     {% for d in data %}
     <li>{{d.description}}</li>
