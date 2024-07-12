@@ -8,7 +8,9 @@
 <body>
   <h1>Todo</h1>
   <ul>
-    <li>Todo 1</li>
+    {% for d in data %}
+    <li>{{d.description}}</li>
+    {% endfor %}
   </ul>
   
 </body>
