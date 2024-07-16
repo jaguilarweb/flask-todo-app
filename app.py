@@ -1,13 +1,14 @@
 import sys
 from flask import Flask, render_template, request, redirect, url_for, jsonify, abort
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate  # type: ignore
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@localhost:5432/todoapp'
 
-
-
 db = SQLAlchemy(app)
+
+migrate = Migrate(app, db)
 
 class Todo(db.Model):
     __tablename__ = 'todos'
@@ -17,8 +18,9 @@ class Todo(db.Model):
     def __repr__(self):
         return f'<Todo {self.id} {self.description}  >'
 
-with app.app_context():
-    db.create_all()
+# Whith migrations we do not use create_all
+""" with app.app_context():
+    db.create_all() """
 
 #Routes
 @app.route('/todos/create', methods=['POST'])
