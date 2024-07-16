@@ -60,3 +60,16 @@ To downgrade the migration:
   ```bash
   flask db downgrade
   ```
+
+An example, we update todo table adding a new column.
+We need to create a new migration:
+  
+  ```bash
+  flask db migrate -m "Add new column to todo table"
+  ```
+
+Then, apply the migration:
+  
+  ```bash
+  flask db upgrade
+  ```
