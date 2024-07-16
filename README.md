@@ -48,3 +48,15 @@ To create a migration:
   flask db migrate -m "migration message"
   flask db migrate
   ```
+
+To apply the migration:
+  
+  ```bash
+  flask db upgrade
+  ```
+
+To downgrade the migration:
+  
+  ```bash
+  flask db downgrade
+  ```
