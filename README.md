@@ -49,6 +49,7 @@ To create a migration:
   flask db migrate
   ```
 
+
 To apply the migration:
 
   ```bash
