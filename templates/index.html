@@ -33,10 +33,7 @@
   </style>
 </head>
 <body>
-
-  <h1>Todo</h1>
   <div class="todos-wrapper">
-
     <form id="form">
       <input type="text" id="description" placeholder="Enter description">
       <button type="submit" value="Create">Add</button>
@@ -44,12 +41,17 @@
     <div id="error" class="hidden">Something went wrong!</div>
     <ul id="todos">
       {% for d in data %}
-      <li> <input class="check-completed" data-id="{{ d.id }}" type="checkbox" {% if d.completed %} checked {% endif %} /> {{d.description}}</li>
+      <li>
+        <input class="check-completed" data-id="{{ d.id }}" type="checkbox" {% if d.completed %} checked {% endif %} /> 
+        {{d.description}}
+        <button class="delete-button" data-id="{{ d.id }}">X</button>
+      </li>
       {% endfor %}
     </ul>
 
   </div>
   <script>
+    /* Select checkbox // Usefull to update todo or sow detail in the future */
     const checkboxes = document.querySelectorAll('.check-completed');
     for (let i = 0; i < checkboxes.length; i++){
       const checkbox = checkboxes[i];
@@ -74,6 +76,7 @@
       })
       }
     }
+    /* Create todo */
     document.getElementById('form').onsubmit = function(e){
       e.preventDefault();
       //const description = document.querySelector('input[name=description]').value;
@@ -98,6 +101,25 @@
         document.getElementById("error").className='';
       })
     }
+    /* Delete todo */
+    const deleteBtns = document.querySelectorAll('.delete-button');
+    for (let i = 0; i < deleteBtns.length; i++){
+      const btn = deleteBtns[i];
+      btn.onclick = (e) => {
+        const todoId = e.target.dataset['id'];
+        fetch('/todos/' + todoId , {
+          method: 'DELETE',
+        })
+        .then(()=>{
+          e.target.parentElement.remove();
+          document.getElementById("error").className='hidden';
+        })
+        .catch(()=> {
+          document.getElementById("error").className='';
+        })
+      }
+    }
+
   </script>
 </body>
 </html>
