@@ -30,21 +30,36 @@
         display: inline-block;
         vertical-align: top;
       }
+      .form-create {
+        margin-bottom: 20px;
+      }
   </style>
 </head>
 <body>
+  <div class="lists-wrapper">
+    <ul id="lists">
+      {% for list in lists %}
+      <li>
+        <a href="/lists/{{list.id}}">
+          {{list.name}}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
   <div class="todos-wrapper">
-    <form id="form">
+    <h4>{{active_list.name}}</h4>
+    <form class="form-create" id="form">
       <input type="text" id="description" placeholder="Enter description">
       <button type="submit" value="Create">Add</button>
     </form>
     <div id="error" class="hidden">Something went wrong!</div>
     <ul id="todos">
-      {% for d in data %}
+      {% for todo in todos %}
       <li>
-        <input class="check-completed" data-id="{{ d.id }}" type="checkbox" {% if d.completed %} checked {% endif %} /> 
-        {{d.description}}
-        <button class="delete-button" data-id="{{ d.id }}">X</button>
+        <input class="check-completed" data-id="{{ todo.id }}" type="checkbox" {% if todo.completed %} checked {% endif %} /> 
+        {{todo.description}}
+        <button class="delete-button" data-id="{{ todo.id }}">X</button>
       </li>
       {% endfor %}
     </ul>
