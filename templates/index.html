@@ -96,11 +96,11 @@
           })
           .then(function(jsonResponse) {
             document.getElementById('error').className = 'hidden';
+            /*Los todo de la lista se marquen*/
+            const todoCheckboxes = document.querySelectorAll('.todo-check-completed')
 
-            const listCheckboxes = document.querySelectorAll('.list-check-completed')
-
-            for (let i = 0; i < listCheckboxes.length; i++) {
-              const checkbox = listCheckboxes[i];
+            for (let i = 0; i < todoCheckboxes.length; i++) {
+              const checkbox = todoCheckboxes[i];
 
               checkbox.checked = true;
             }
