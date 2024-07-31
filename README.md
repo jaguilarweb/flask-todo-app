@@ -209,3 +209,13 @@ Then, we change the `nullable=True` to `nullable=False` in the todo class:
     flask db migration
     flask db upgrade
     ```
+
+## Migration with existing DB
+
+If we have an existing database and we want to create a migration, we need to stamp the head.
+
+```bash
+    flask db stamp head
+    flask db migration
+    flask db upgrade
+    ```
