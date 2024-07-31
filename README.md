@@ -215,7 +215,39 @@ Then, we change the `nullable=True` to `nullable=False` in the todo class:
 If we have an existing database and we want to create a migration, we need to stamp the head.
 
 ```bash
-    flask db stamp head
-    flask db migration
-    flask db upgrade
-    ```
+  flask db stamp head
+  flask db migration
+  flask db upgrade
+  ```
+
+
+
+## Many to many Relationships
+
+Example:
+
+```python
+
+order_items = db.Table('order_items',
+                        db.Column('order_id', db.Integer, db.ForeignKey('order.id'), primary_key=True),
+                        db.Column('product_id', db.Integer, db.ForeignKey('product.id'), primary_key=True)
+                        )
+
+class Order(db.Model):
+    __tablename__ = 'order'
+    id = db.Column(db.Integer, primary_key=True)
+    status = db.Column(db.String(200), nullable=False)
+    products = db.relationship('Product', secondary=order_items, backref=db.backref('orders', lazy=True))
+
+    def __repr__(self):
+        return f'<Order {self.id} {self.status}  >'
+    
+class Product(db.Model):
+    __tablename__ = 'product'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200), nullable=False)
+
+    def __repr__(self):
+        return f'<Product {self.id} {self.name}  >'
+
+```

@@ -28,12 +28,10 @@ class TodoList(db.Model):
     name = db.Column(db.String(200), nullable=False)
     todos = db.relationship('Todo', backref='list', lazy=True)
 
-#TODO:Crear estado completed a TodoList 
-
-
-    #To debbugin
+        #To debbugin
     def __repr__(self):
         return f'<TodoList {self.id} {self.name}  >'
+
 
 # ROUTES
 @app.route('/')
