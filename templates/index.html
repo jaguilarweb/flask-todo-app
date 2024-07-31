@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta http-equiv="refresh" content="60">
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
   <title>Todo</title>
   <style>
       .hidden {
@@ -172,7 +172,9 @@
     const todoCheckboxes = document.querySelectorAll('.todo-check-completed');
     for (let i = 0; i < todoCheckboxes.length; i++){
       const checkbox = todoCheckboxes[i];
+
       checkbox.onchange = (e) => {
+
         const newCompleted = e.target.checked;
         /* const todoId = e.target.getAttribute('data-id'); */
         const todoId = e.target.dataset['id'];
@@ -187,6 +189,7 @@
         })
         .then(()=>{
           document.getElementById("error").className='hidden';
+          
         })
         .catch(()=> {
         document.getElementById("error").className='';
@@ -227,7 +230,7 @@
       const btn = deleteBtns[i];
       btn.onclick = (e) => {
         const todoId = e.target.dataset['id'];
-        fetch('/todos/' + todoId , {
+        fetch('/todos/' + todoId + '/delete' , {
           method: 'DELETE',
         })
         .then(()=>{
